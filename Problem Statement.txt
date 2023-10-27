@@ -1,0 +1,36 @@
+Problem Statement: In Memory Backup and Restore Emulator.
+Language: C++/C.
+
+Design and code following features. Please read all features and design data structure before attempting problem. Code in order of problem statement.
+
+1.  Allocate a big Block of memory at once with malloc or new. We will use this memory as virtual disk to backup given files. 
+
+2.	To avoid the complexities of reading/writing file from a disk, file will be modeled as 
+
+	class CvFile {
+		string fileName;
+		string fileContent;
+		...
+		...
+	}
+
+	You can add more data members in this structure.
+
+3.  Fixed size blocks of data are read from file and written to fixed size chunks in the virtual disk. File content can be spread across multiple chunks in the virtual disk based on the number of characters. Also, full chunk will be used even if partial capacity is required.
+	Eg. If Block size is 16 bytes and one file of 32 bytes is provided for backup, You should carve out two chunks from virtual disk and write to it. 
+
+4.	You should design the following data structures:
+	a.	for bookkeeping of chunks and free space in virtual disk.
+	b.	backupCatalog - for keeping track of a given files chunk allocations, to be able to later restore/reconstruct the file.
+
+5.  Same file with different time stamp could be given. You should backup all such versions. i.e do not overwrite.
+
+6.  Write a function to print virtual disk blocks;
+
+7.	Write a function to list all backed files and their time stamps.
+
+8.	Given a filename and timestamp. Restore (i.e print on console) file content. In case there are multiple version of same file backed up with different time stamp, Restore file version closest (<=)to the provided time stamp.
+
+9.	Mark a file as deleted as of a given reference time. The older versions are still available for restore based on reference time provided.
+
+10.	Write function to prune all older versions of files (older than a given timestamp) in virtual disk. These freed blocks should be reused for next backup requests.
